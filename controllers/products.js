@@ -1,7 +1,7 @@
-const { Product } = require('../models'); // Assuming models are defined in a separate 'models' directory
+import { Product } from '../models/products.js'; // Assuming models are defined in a separate 'models' directory
 
 // Get all products, optionally filtered by category ID
-exports.getProducts = async (req, res) => {
+export const getProducts = async (req, res) => {
     try {
         const categoryId = req.query.categoryId;
         const filter = categoryId ? { where: { category_id: categoryId } } : {};
@@ -13,7 +13,7 @@ exports.getProducts = async (req, res) => {
 };
 
 // Get a specific product by ID
-exports.getProductById = async (req, res) => {
+export const getProductById = async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await Product.findByPk(productId);
@@ -27,7 +27,7 @@ exports.getProductById = async (req, res) => {
 };
 
 // Create a new product
-exports.createProduct = async (req, res) => {
+export const createProduct = async (req, res) => {
     try {
         const { name, description, price, category_id } = req.body;
         const newProduct = await Product.create({ name, description, price, category_id });
@@ -38,7 +38,7 @@ exports.createProduct = async (req, res) => {
 };
 
 // Update a specific product by ID
-exports.updateProduct = async (req, res) => {
+export const updateProduct = async (req, res) => {
     try {
         const productId = req.params.id;
         const { name, description, price, category_id } = req.body;
@@ -56,7 +56,7 @@ exports.updateProduct = async (req, res) => {
 };
 
 // Delete a specific product by ID
-exports.deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res) => {
     try {
         const productId = req.params.id;
         const product = await Product.findByPk(productId);

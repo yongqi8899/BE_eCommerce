@@ -1,7 +1,7 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../db/index');
+import sequelize from '../db/index.js';
+import { Sequelize, DataTypes } from 'sequelize';
 
-const Product = sequelize.define('Product', {
+export const Product = sequelize.define('Product', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -38,4 +38,4 @@ const Product = sequelize.define('Product', {
     timestamps: false // Disable automatic creation of createdAt and updatedAt fields
 });
 
-module.exports = Product;
+await Product.sync();
