@@ -7,12 +7,12 @@ import {
   deleteUser,
 } from "../controllers/users.js";
 
-import {checkIfUserExists} from '../middleware/validateRequest.js';
+import {checkIfUserExists, validateUser} from '../middleware/validateRequest.js';
 
 const usersRoutes = Router();
 
 usersRoutes.get("/", getUsers);
-usersRoutes.post("/", createUser);
+usersRoutes.post("/", validateUser, createUser);
 
 usersRoutes.get("/:id", checkIfUserExists, getUserById);
 usersRoutes.put("/:id", checkIfUserExists, updateUser);
