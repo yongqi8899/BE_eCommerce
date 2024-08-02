@@ -1,5 +1,5 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize(process.env.PG_URI, {dialect: 'postgres'});
+const sequelize = new Sequelize(process.env.PG_URI, { dialect: "postgres" });
 
-  export default sequelize;
+export default sequelize;
