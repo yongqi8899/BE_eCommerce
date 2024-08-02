@@ -1,11 +1,12 @@
 import { Product } from "../models/products.js"; // Assuming models are defined in a separate 'models' directory
+import { Category } from "../models/categories.js";
 
 // Get all products, optionally filtered by category ID
 export const getProducts = async (req, res) => {
   try {
-    const categoryId = req.query.categoryId;
-    const filter = categoryId ? { where: { categoryId: categoryId } } : {};
-    const products = await Product.findAll(filter);
+    // const categoryId = req.query.categoryId;
+    // const filter = categoryId ? { where: { categoryId: categoryId } } : {};
+    const products = await Product.findAll({include: {model: Category}});
     res.json(products);
   } catch (error) {
     res
@@ -33,12 +34,12 @@ export const getProductById = async (req, res) => {
 // Create a new product
 export const createProduct = async (req, res) => {
   try {
-    const { name, description, price, categoryId } = req.body;
+    const { name, description, price, CategoryId } = req.body;
     const newProduct = await Product.create({
       name,
       description,
       price,
-      categoryId,
+      CategoryId,
     });
     res.status(201).json(newProduct);
   } catch (error) {
@@ -52,14 +53,14 @@ export const createProduct = async (req, res) => {
 export const updateProduct = async (req, res) => {
   try {
     const productId = req.params.id;
-    const { name, description, price, categoryId } = req.body;
+    const { name, description, price, CategoryId } = req.body;
     const product = await Product.findByPk(productId);
 
     if (!product) {
       return res.status(404).json({ error: "Product not found." });
     }
 
-    await product.update({ name, description, price, categoryId });
+    await product.update({ name, description, price, CategoryId });
     res.json(product);
   } catch (error) {
     res

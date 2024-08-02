@@ -1,8 +1,9 @@
 import { Order } from "../models/orders.js";
+import {User} from '../models/users.js';
 
 export const getOrders = async (req, res) => {
   try {
-    const orders = await Order.findAll();
+    const orders = await Order.findAll({include: {model: User}});
     res.json(orders);
   } catch (error) {
     res.status(500).json({ error: error.message });
